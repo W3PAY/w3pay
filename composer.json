@@ -1,0 +1,16 @@
+{
+    "name": "w3pay/w3pay",
+    "description": "W3PAY Web3 Crypto Payments Method",
+    "type": "library",
+	"license": "LGPL-3.0-or-later", 
+    "authors": [
+        {
+            "name": "W3PAY",
+            "email": "info@w3pay.dev"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+		"php": ">=7.1"
+	}
+}
