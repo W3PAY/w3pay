@@ -1,0 +1,39 @@
+SOFTWARE DISCLAIMER AGREEMENT
+
+IMPORTANT - READ CAREFULLY: This Software Disclaimer Agreement ("Agreement") is a legal agreement between you (either an individual or a single entity) and W3PAY ("Company") for the use of the [Software Name] software, including any associated documentation ("Software"). By using the Software, you agree to be bound by the terms and conditions of this Agreement. If you do not agree to the terms and conditions of this Agreement, do not use the Software.
+
+DISCLAIMER OF LIABILITY AND DAMAGES: The Software is provided "as is," without warranty of any kind, either express or implied, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose. The Company does not warrant that the Software will meet your requirements or that the operation of the Software will be uninterrupted or error-free. The entire risk as to the quality and performance of the Software is with you.
+
+To the maximum extent permitted by applicable law, in no event shall the Company be liable for any indirect, special, incidental, or consequential damages arising out of or in connection with the use or inability to use the Software, including, without limitation, damages for loss of goodwill, work stoppage, computer failure, or malfunction, or any and all other commercial damages or losses, even if advised of the possibility thereof and regardless of the legal or equitable theory (contract, tort, or otherwise) upon which the claim is based.
+
+The Company's liability to you or any third parties in any circumstance is limited to the greater of the amount paid by you for the Software or five dollars ($0.00).
+
+TERMINATION: This Agreement will terminate automatically if you fail to comply with any of the terms and conditions of this Agreement. Upon termination, you must immediately cease all use of the Software and destroy all copies of the Software.
+
+GOVERNING LAW: This Agreement shall be governed by and construed in accordance with the laws, without giving effect to its conflict of law provisions.
+
+ENTIRE AGREEMENT: This Agreement constitutes the entire agreement between you and the Company with respect to the use of the Software and supersedes all prior or contemporaneous communications and proposals, whether oral or written, between you and the Company.
+
+By clicking "I agree" or by installing or using the Software, you acknowledge that you have read this Agreement, understand it, and agree to be bound by its terms and conditions.
+
+ADDENDUM TO SOFTWARE DISCLAIMER AGREEMENT
+
+In addition to the terms and conditions set forth in the Software Disclaimer Agreement between [W3PAY] ("Company") and the user ("User"), the User acknowledges and agrees to the following:
+
+1. The User shall not use the Software in any country where such use is prohibited by law, regulation, or governmental authority.
+
+2. The Company makes no representation that the Software is appropriate or available for use in any particular location. The User is responsible for compliance with all applicable laws and regulations in their jurisdiction.
+
+3. The User understands that the Company may restrict or terminate access to the Software at any time and without notice, in its sole discretion, for any reason, including, without limitation, if the User violates any of the terms and conditions of this Agreement.
+
+4. The User acknowledges that it is their sole responsibility to ensure that their use of the Software is in compliance with all applicable laws and regulations in their jurisdiction.
+
+5. The User acknowledges and agrees that the use of the Software is at their own risk. The Company makes no representations or warranties of any kind, express or implied, regarding the Software, including but not limited to the accuracy, completeness, reliability, suitability, availability, or timeliness of the Software.
+
+6. The User acknowledges and agrees that they are solely responsible for evaluating all risks associated with the use of the Software, including any risks associated with reliance on the accuracy, completeness, reliability, suitability, availability, or timeliness of the Software.
+
+7. The User acknowledges and agrees that they are solely responsible for performing their own research and due diligence before using the Software, and that they shall not rely solely on any information provided by the Company or any third-party sources.
+
+8. The User acknowledges and agrees that the Company is not responsible for any damages, losses, or expenses that may result from their use of the Software, including but not limited to any direct, indirect, incidental, consequential, or punitive damages.
+
+By using the Software, the User acknowledges and agrees to the terms and conditions set forth in this Addendum, and agrees to comply with all applicable laws and regulations related to the use of the Software in their jurisdiction. If the User does not agree to these terms, the User should not use the Software.
