@@ -40,4 +40,4 @@ Copy the sample pages and paste outside of the w3pay directory.
 
 #### Important. After copying the examples, you need to open the files and specify the paths to w3payFrontend and w3payBackend and remove exit at the beginning of the files.
 
-After successfully implementing the plugin into your site, go to the [https://w3pay.dev/settings](settings) and test the acceptance of crypto payments.
+After successfully implementing the plugin into your site, go to the settings and test the acceptance of crypto payments. https://w3pay.dev/settings
