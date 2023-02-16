@@ -1,0 +1,573 @@
+@import url('../fonts/Roboto/font.css');
+
+.payBlock *, .checkPaymentBlock *, .settingsW3payBlock *, .transactionsW3payBlock * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    line-height: 1;
+    color: #000000;
+}
+.payBlock * a, .checkPaymentBlock * a, .settingsW3payBlock * a, .transactionsW3payBlock * a {
+    color: #25a4ed;
+}
+.payBlock p, .checkPaymentBlock p, .settingsW3payBlock p {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.payBlock ul, .checkPaymentBlock ul, .settingsW3payBlock ul {
+    margin-left: 30px;
+}
+.payBlock h1, .checkPaymentBlock h1, .settingsW3payBlock h1,
+.payBlock h2, .checkPaymentBlock h2, .settingsW3payBlock h2, .transactionsW3payBlock h2,
+.payBlock h3, .checkPaymentBlock h3, .settingsW3payBlock h3 {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.h1Title {
+    text-align: center;
+    font-size: 28px;
+}
+
+/*.orderBlock {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: #f7f7f7;
+    padding: 20px;
+    font-family: 'Roboto', sans-serif !important;
+    font-size: 14px !important;
+}
+@media (max-width: 600px) {
+    .orderBlock {
+        padding: 5px !important;
+    }
+}*/
+
+.payBlock {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: #f7f7f7;
+    padding: 20px;
+    font-family: 'Roboto', sans-serif !important;
+    font-size: 14px !important;
+    min-width: 300px !important;
+}
+
+@media (max-width: 600px) {
+    .payBlock {
+        padding: 5px;
+    }
+}
+
+.payBlock button, .checkPaymentLink {
+    display: block;
+    background: #25a4ed !important;
+    padding: 10px 0px !important;
+    border: none !important;
+    color: #ffffff !important;
+    font-size: 15px !important;
+    margin: 5px 0px !important;
+    cursor: pointer !important;
+    width: 100% !important;
+    text-align: center !important;
+    text-decoration: none !important;
+    /* text-transform: uppercase !important; */
+}
+
+.payBlock button:hover {
+    opacity: 0.9 !important;
+}
+
+.payBlock select {
+    width: 100% !important;
+    margin: 5px 0px !important;
+    height: 40px !important;
+    border-color: #ccc !important;
+}
+
+.loadingType {
+    opacity: 0.5 !important;
+    pointer-events: none !important;
+}
+
+.paySuccess, .payProcess, .payError {
+    padding: 10px !important;
+    background: #c6e9cd !important;
+    font-size: 13px !important;
+}
+
+.payProcess {
+    background: #e1e4ff !important;
+}
+
+.payError {
+    background: #f5dcdc !important;
+}
+.payConfirmation * {
+    font-size: 13px !important;
+}
+.payConfirmation {
+    padding: 10px !important;
+    background: #e1e4ff !important;
+}
+.payBlock .payConfirmationList {
+
+}
+.payBlock .payConfirmationList li {
+    margin-bottom: 7px;
+    list-style: disc;
+}
+
+.IagreeRow {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.inError {
+    background: #f5dcdc !important;
+    padding: 10px !important;
+    margin: 10px 0px !important;
+}
+
+.WalletDataContent * {
+    font-size: 13px !important;
+}
+.WalletDataContent {
+    padding: 10px !important;
+    background: #fff5e7 !important;
+    margin-bottom: 2px !important;
+    cursor: pointer;
+}
+
+.walletsImg {
+    max-width: 100% !important;
+}
+.WalletDataContent .chainNameBlock {
+    margin-bottom: 5px;
+}
+.WalletDataContent .chainNameBlock .chainImg, .chainImg {
+    width: 33px !important;
+    height: 33px !important;
+    float: left !important;
+    margin-right: 10px !important;
+}
+
+.chainName, .accountAddress {
+    font-weight: bold !important;
+}
+
+.RadioPayTokensBlock {
+
+}
+
+.RadioPayTokensBlock .addressSenderToken {
+    width: 139px !important;
+    width: 160px !important;
+    margin-bottom: 5px !important;
+    margin-right: 5px !important;
+    float: left !important;
+    text-align: center !important;
+    position: relative !important;
+    cursor: pointer;
+}
+
+.RadioPayTokensBlock .addressSenderToken.addressSenderTokenActive {
+    background: #8fe91729 !important;
+}
+
+.RadioPayTokensBlock .addressSenderToken input {
+    display: none;
+}
+
+.RadioPayTokensBlock .addressSenderToken .SenderTokenText {
+    display: block;
+    font-size: 13px !important;
+    text-align: center !important;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.RadioPayTokensBlock .addressSenderToken .SenderTokenText .SenderTokenTextName {
+    display: block;
+    font-weight: bold !important;
+    margin-bottom: 5px;
+}
+.RadioPayTokensBlock .addressSenderToken .SenderTokenText .SenderTokenTextAddress {
+    font-size: 13px;
+    max-width: 121px;
+    display: block;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.RadioPayTokensBlock .addressSenderToken img {
+    width: 144px;
+    height: 144px;
+    margin-top: 5px;
+    opacity: 0.9 !important;
+}
+
+.RadioPayTokensBlock .addressSenderToken.addressSenderTokenActive img {
+    opacity: 1 !important;
+}
+
+.RadioPayTokensBlock .addressSenderToken .recommendedToken {
+    position: absolute !important;
+    background: #464bdd !important;
+    color: #ffffff !important;
+    padding: 3px 5px !important;
+    top: 125px !important;
+    left: 5px !important;
+    border-radius: 7px !important;
+    z-index: 2 !important;
+    text-transform: uppercase !important;
+    font-size: 15px !important;
+    font-weight: bold !important;
+    transform: rotate(-32deg) !important;
+}
+
+.RadioPayTokensBlock .addressSenderToken .noticeTextToken span {
+    display: table;
+    margin: 0 auto;
+    margin-top: 10px;
+    background: #000000 !important;
+    color: #ffffff !important;
+    padding: 4px 8px !important;
+    top: 0px !important;
+    left: 5px !important;
+    border-radius: 7px !important;
+    z-index: 2 !important;
+    text-transform: uppercase !important;
+    font-size: 13px !important;
+    font-weight: bold !important;
+}
+
+.RadioPayTokensBlock .addressSenderToken .noticeTextToken span.noticeBalanceLow {
+    background: #dd4646 !important;
+}
+
+.RadioPayTokensBlock .addressSenderToken .noticeTextToken span.noticeBalanceOK {
+    background: #26a17b !important;
+}
+
+.addressSenderToken:checked + label {
+    color: red !important;
+}
+
+.languageBlock, .WalletData, .SelectPayTokensBlock, .payTextBefore, .textError, .payText {
+    display: table;
+    width: 100% !important;
+    overflow: hidden;
+}
+
+.BlockNetworks .BlockNetworksLi {
+    list-style: none;
+}
+
+.BlockNetworks .BlockNetworksLi a {
+    display: table !important;
+    margin: 5px 0px !important;
+    font-size: 14px !important;
+    line-height: 33px !important;
+    color: #1a73e8 !important;
+}
+
+.checkPaymentBlock {
+    max-width: 1000px;
+    background: #f7f7f7;
+    padding: 20px;
+    margin: 0 auto;
+    font-family: 'Roboto', sans-serif !important;
+    font-size: 14px;
+}
+.checkPaymentBlock a * {
+    color: #25a4ed;
+    text-decoration: none;
+}
+.checkPaymentBlock a:hover {
+    text-decoration: underline;
+}
+@media (max-width: 600px) {
+    .checkPaymentBlock {
+        padding: 5px !important;
+    }
+}
+
+.checkPaymentBlock .checkPaymentMessage {
+    padding: 10px;
+    font-size: 18px;
+    word-wrap: break-word;
+    margin-bottom: 5px;
+    background: #def6fb;
+    text-align: center;
+}
+.checkPaymentBlock .checkPaymentMessage span {
+    text-transform: uppercase;
+    font-size: 46px;
+}
+.checkPaymentBlock .checkPaymentError {
+    background: #fbdede;
+}
+.checkPaymentBlock .checkPaymentSuccess {
+    background: #defbdff5;
+}
+.checkPaymentBlock .paymentInfo {
+    word-wrap: break-word;
+}
+.checkPaymentBlock .checkPaymentBtn {
+    display: block;
+    background: #25a4ed !important;
+    padding: 10px 0px !important;
+    border: none !important;
+    color: #ffffff !important;
+    font-size: 15px !important;
+    margin: 5px 0px !important;
+    cursor: pointer !important;
+    width: 100% !important;
+    text-align: center !important;
+    text-decoration: none !important;
+}
+.checkPaymentBlock .paymentData {
+    padding: 0px;
+    word-wrap: break-word;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.checkPaymentBlock .paymentData li {
+    list-style: none;
+    display: table;
+    width: 100%;
+    margin-bottom: 8px;
+}
+.checkPaymentBlock .paymentData span {
+    min-width: 20%;
+    display: block;
+    float: left;
+}
+@media (max-width: 700px) {
+    .checkPaymentBlock .paymentData span {
+        width: auto;
+    }
+}
+.W3payForm .W3payBlockRow {
+    margin-bottom: 10px;
+}
+.W3payForm .W3payBlockLabel {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 3px;
+}
+.W3payForm .W3payBlockInput, .W3payForm .W3payBlockSelect {
+    width: 100%;
+    display: block;
+    height: 35px;
+    border: 1px solid #ccc;
+    text-indent: 5px;
+    padding: 0px;
+    margin: 0px;
+}
+.W3payForm .W3payBlockBtn {
+    width: 100%;
+    padding: 10px 0px;
+    background: #1a73e8;
+    color: #fff;
+    border: 0px;
+    cursor: pointer;
+}
+.W3payForm .W3payBlockBtn.w3payGreenBtn {
+    background: #70bf56;
+}
+.W3payForm .W3payBlockBtn.w3payRedBtn {
+    background: #c33542;
+}
+
+/* Language */
+
+.currentLangBlock {
+    cursor: pointer;
+    padding: 5px 5px;
+    display: block;
+    font-size: 14px;
+    float: right;
+}
+.currentLangBlock span {
+    color: #0786cf;
+}
+.selectLangBlock {
+    width: 100%;
+    clear: both;
+}
+.selectLangBlock .selectLangRow {
+    cursor: pointer;
+    padding: 5px 5px;
+    background: #25a4ed;
+    display: table;
+    font-size: 13px;
+    float: left;
+    margin: 5px 5px 5px 0px;
+    color: #ffffff;
+    text-decoration: none;
+    width: 135px;
+}
+
+/* Settings */
+
+.settingsW3payBlockTitle {
+    text-align: center;
+}
+
+.settingsW3payBlock {
+    max-width: 600px;
+    background: #f7f7f7;
+    padding: 20px;
+    font-size: 13px;
+    font-family: 'Roboto', sans-serif !important;
+}
+.settingsW3payBlock .settingsW3payBlockRow {
+    margin-bottom: 10px;
+}
+.settingsW3payBlock .settingsW3payBlockLabel {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 3px;
+}
+.settingsW3payBlock .settingsW3payBlockLabel span {
+
+}
+.settingsW3payBlock .settingsW3payBlockInput, .settingsW3payBlock .settingsW3payBlockSelect {
+    width: 100%;
+    height: 30px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-indent: 5px;
+}
+.settingsW3payBlock .settingsW3payBlockBtn {
+    display: block;
+    text-align: center;
+    width: 100%;
+    padding: 10px 0px;
+    background: #1a73e8;
+    color: #fff;
+    border: 0px;
+    cursor: pointer;
+    text-decoration: none;
+}
+.settingsW3payBlock .settingsW3payBlockBtn.w3payGreenBtn {
+    background: #70bf56;
+}
+.settingsW3payBlock .settingsW3payBlockBtn.w3payRedBtn {
+    background: #c33542;
+}
+.settingsW3payBlock .formMessage div {
+    background: #def6fb;
+    padding: 10px;
+    font-size: 13px;
+    word-wrap: break-word;
+    margin-bottom: 5px;
+}
+.useWeb3Text {
+    color: red;
+}
+.signoutBtn {
+    color: #0786cf;
+    text-decoration: none;
+    float: right;
+}
+
+/*
+transactions
+ */
+.transactionsW3payBlock {
+    max-width: 1000px;
+    background: #f7f7f7;
+    padding: 20px;
+    font-family: 'Roboto', sans-serif !important;
+    font-size: 14px;
+}
+.transactionsW3payBlockTitle {
+    text-align: center;
+}
+.transactionsW3payBlock .txBlock a {
+    color: #25a4ed;
+    text-decoration: none;
+}
+.transactionsW3payBlock .txBlock a:hover {
+    color: #25a4ed;
+    text-decoration: underline;
+}
+.transactionsW3payBlock .txBlock .txRow {
+    width: 100%;
+    float: none;
+    overflow: hidden;
+    margin-bottom: 5px;
+    background: #ebebeb;
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+}
+.transactionsW3payBlock .txBlock .txRow .txTx {
+    width: 495px;
+    float: left;
+    overflow: hidden;
+}
+.transactionsW3payBlock .txBlock .txRow .txOrder {
+    width: 100px;
+    float: left;
+}
+.transactionsW3payBlock .txBlock .txRow .txChain {
+    width: 200px;
+    float: left;
+}
+.transactionsW3payBlock .txBlock .txRow .txStatus {
+    width: 85px;
+    float: left;
+}
+.transactionsW3payBlock .txBlock .txRow .txDate {
+    width: 115px;
+    float: left;
+}
+/*.transactionsW3payBlock .txBlock .txRow .txOrder,
+.transactionsW3payBlock .txBlock .txRow .txChain,
+.transactionsW3payBlock .txBlock .txRow .txStatus,
+.transactionsW3payBlock .txBlock .txRow .txDate
+{
+    width: 20%;
+    float: left;
+}*/
+.transactionsW3payBlock .txBlock .txRow .txName {
+    display: none;
+}
+@media (max-width: 800px) {
+    .transactionsW3payBlock .txBlock .txRow.txHead {
+        display: none;
+    }
+    .transactionsW3payBlock {
+        padding: 5px;
+    }
+    .transactionsW3payBlock .txBlock .txRow .txTx,
+    .transactionsW3payBlock .txBlock .txRow .txOrder,
+    .transactionsW3payBlock .txBlock .txRow .txChain,
+    .transactionsW3payBlock .txBlock .txRow .txStatus,
+    .transactionsW3payBlock .txBlock .txRow .txDate
+    {
+        width: 100%;
+        float: left;
+    }
+    .transactionsW3payBlock .txBlock .txRow .txName {
+        display: block;
+        float: left;
+    }
+}
+
+.txPages {
+    margin-top: 20px;
+}
+.txPages a {
+    text-decoration: none;
+    padding: 5px;
+    background: #25a4ed;
+    color: #fff;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}

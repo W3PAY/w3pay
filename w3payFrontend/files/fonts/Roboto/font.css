@@ -1,0 +1,95 @@
+@font-face {
+    font-display: swap;
+    font-family: roboto;
+    font-style: normal;
+    font-weight: 400;
+    src: local('Roboto'), url(Roboto-Regular.woff) format('woff')
+}
+
+@font-face {
+    font-display: swap;
+    font-family: roboto;
+    font-style: italic;
+    font-weight: 400;
+    src: local('Roboto'), url(Roboto-Italic.woff) format('woff')
+}
+
+@font-face {
+    font-display: swap;
+    font-family: roboto;
+    font-style: normal;
+    font-weight: 700;
+    src: local('Roboto'), url(Roboto-Bold.woff) format('woff')
+}
+
+@font-face {
+    font-display: swap;
+    font-family: roboto;
+    font-style: italic;
+    font-weight: 700;
+    src: local('Roboto'), url(Roboto-BoldItalic.woff) format('woff')
+}
+
+@font-face {
+    font-display: swap;
+    font-family: roboto thin;
+    font-style: normal;
+    font-weight: 250;
+    src: local('Roboto Thin'), url(Roboto-Thin.woff) format('woff')
+}
+
+@font-face {
+    font-display: swap;
+    font-family: roboto thin;
+    font-style: italic;
+    font-weight: 250;
+    src: local('Roboto Thin'), url(Roboto-ThinItalic.woff) format('woff')
+}
+
+@font-face {
+    font-display: swap;
+    font-family: roboto light;
+    font-style: normal;
+    font-weight: 300;
+    src: local('Roboto Light'), url(Roboto-Light.woff) format('woff')
+}
+
+@font-face {
+    font-display: swap;
+    font-family: roboto light;
+    font-style: italic;
+    font-weight: 300;
+    src: local('Roboto Light'), url(Roboto-LightItalic.woff) format('woff')
+}
+
+@font-face {
+    font-display: swap;
+    font-family: roboto medium;
+    font-style: normal;
+    font-weight: 500;
+    src: local('Roboto Medium'), url(Roboto-Medium.woff) format('woff')
+}
+
+@font-face {
+    font-display: swap;
+    font-family: roboto medium;
+    font-style: italic;
+    font-weight: 500;
+    src: local('Roboto Medium'), url(Roboto-MediumItalic.woff) format('woff')
+}
+
+@font-face {
+    font-display: swap;
+    font-family: roboto black;
+    font-style: normal;
+    font-weight: 900;
+    src: local('Roboto Black'), url(Roboto-Black.woff) format('woff')
+}
+
+@font-face {
+    font-display: swap;
+    font-family: roboto black;
+    font-style: italic;
+    font-weight: 900;
+    src: local('Roboto Black'), url(Roboto-BlackItalic.woff) format('woff')
+}
