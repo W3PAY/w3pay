@@ -2,11 +2,12 @@
     "name": "w3pay/w3pay",
     "description": "W3PAY Web3 Crypto Payments Method",
     "type": "library",
-	"license": "LGPL-3.0-or-later", 
+	"license": "LGPL-3.0-or-later",
     "authors": [
         {
             "name": "W3PAY",
-            "email": "info@w3pay.dev"
+            "email": "info@w3pay.dev",
+            "homepage": "https://github.com/w3pay"
         }
     ],
     "minimum-stability": "stable",
