@@ -105,7 +105,7 @@
             foreach ($SettingsData['ScanApiTokens'] as $chainId => $ScanApiToken) {
                 ?>
                 <div class="settingsW3payBlockRow">
-                    <label class="settingsW3payBlockLabel"><?= $L->sL('Token for') ?> <?= $ScanApiToken['ScanApiUrl'] ?></label>
+                    <label class="settingsW3payBlockLabel">Api Key <?= $ScanApiToken['ScanApiUrl'] ?></label>
                     <input name="ScanApiTokens[<?= $chainId ?>][ScanApiUrl]" value="<?= $ScanApiToken['ScanApiUrl'] ?>"
                            type="hidden">
                     <input name="ScanApiTokens[<?= $chainId ?>][ScanApiToken]" placeholder="Token" type="text"
@@ -115,6 +115,30 @@
             }
             ?>
         </div>
+        <div class="settingsW3payBlockRow">
+            <?php $name = 'enableFiatMulticurrency'; ?>
+            <label class="settingsW3payBlockLabel"><input
+                        class="enableFiatMulticurrencyInput" <?= (!empty($SettingsData[$name])) ? 'checked' : '' ?> type="checkbox"
+                        name="<?= $name; ?>" value="true"> Enable fiat multicurrency</label>
+            <div class="useWeb3Text">
+                <!--Important! If $useWeb3 = enable, then execute in the console: <pre>cd w3pay/w3payBackend/composer/; composer require web3p/web3.php dev-master</pre>-->
+            </div>
+        </div>
+        <div class="backendCurrencyConversionApiBlock">
+            <div class="settingsW3payBlockRow">
+                <label class="settingsW3payBlockLabel">CoinMarketCap: <a target="_blank" href="https://pro.coinmarketcap.com/">API key</a></label>
+                <?php $name = 'CmcApi'; ?>
+                <input autocomplete="off" name="<?= $name ?>" type="text"
+                       class="settingsW3payBlockInput" required="required" value="<?= $SettingsData[$name] ?>">
+            </div>
+            <div class="settingsW3payBlockRow">
+                <label class="settingsW3payBlockLabel">Remember exchange rate (hours)</label>
+                <?php $name = 'rememberFiat'; ?>
+                <input autocomplete="off" name="<?= $name ?>" type="text"
+                       class="settingsW3payBlockInput" required="required" value="<?= $SettingsData[$name] ?>">
+            </div>
+        </div>
+
 
         <h3 style="display: none;" class="settingsW3payBlockTitle"><?= $L->sL('Settings files') ?></h3>
         <?php

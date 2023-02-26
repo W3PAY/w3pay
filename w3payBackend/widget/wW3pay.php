@@ -12,6 +12,7 @@ include_once(__DIR__.'/../services/sDefines.php');
 include_once(__DIR__.'/../services/sLanguage.php');
 include_once(__DIR__.'/../services/sTransactions.php');
 include_once(__DIR__.'/../services/sAssistant.php');
+include_once(__DIR__.'/../services/sCurrencies.php');
 
 class wW3pay
 {
@@ -43,11 +44,12 @@ class wW3pay
 
     public function showPayment($data){
 
-        if(empty($data['OrderData']['orderId'])){
-            return ['error' => 1, 'html'=>'orderId is empty'];
+        if(empty($data['FolderFrontendUrl'])){
+            $data['FolderFrontendUrl'] = _W3PAY_w3payFrontend_;
         }
-        if(empty($data['OrderData']['payAmounts'])){
-            return ['error' => 1, 'html'=>'payAmounts is empty'];
+        $checkSettings = $this->checkSettings();
+        if(!empty($checkSettings['error'])){
+            return $checkSettings;
         }
         if(empty($data['FolderBackend'])){
             $data['FolderBackend'] = __DIR__.'/../../w3payBackend';
@@ -55,15 +57,46 @@ class wW3pay
         if(!file_exists($data['FolderBackend'])){
             return ['error' => 1, 'html'=>'FolderBackend not found'];
         }
-        if(empty($data['FolderFrontendUrl'])){
-            $data['FolderFrontendUrl'] = _W3PAY_w3payFrontend_;
+        if(empty($data['OrderData']['orderId'])){
+            return ['error' => 1, 'html'=>'orderId is empty'];
         }
+        if(empty($data['OrderData']['payAmounts']) && empty($data['OrderData']['fiatData'])){
+            return ['error' => 1, 'html'=>'payAmounts and fiatData is empty'];
+        }
+        if(empty($data['OrderData']['payAmounts'])){
+            // If required to convert fiat currencies
+            if(empty($data['OrderData']['fiatData'])){
+                return ['error' => 1, 'html'=>'fiatData is empty'];
+            }
+            if(empty($data['OrderData']['fiatData']['currency'])){
+                return ['error' => 1, 'html'=>'fiatData currency is empty'];
+            }
+            if(empty($data['OrderData']['fiatData']['amount'])){
+                return ['error' => 1, 'html'=>'fiatData amount is empty'];
+            }
+            include_once($data['FolderBackend'] . '/services/sW3pay.php');
+            $PayAmountsData = sW3pay::instance()->getPayAmountsData($data['OrderData']);
+
+            if(!empty($PayAmountsData['error'])){
+                return ['error' => 1, 'html'=>$PayAmountsData['data']];
+            }
+
+            $data['OrderData'] = $PayAmountsData['OrderData'];
+        }
+        if(empty($data['OrderData']['payAmounts'])){
+            return ['error' => 1, 'html'=>'payAmounts is empty'];
+        }
+        if(!is_array($data['OrderData']['payAmounts'])){
+            return ['error' => 1, 'html'=>'payAmounts not array'];
+        }
+        foreach ($data['OrderData']['payAmounts'] as $keyPayAmount => $payAmount){
+            if(!empty($payAmount['payAmountInReceiveToken'])){
+                $data['OrderData']['payAmounts'][$keyPayAmount]['payAmountInReceiveToken'] = strval($payAmount['payAmountInReceiveToken']);
+            }
+        }
+
         if(empty($data['checkPaymentPageUrl'])){
             $data['checkPaymentPageUrl'] = '/w3pay/w3payFrontend/checkPayment.php';
-        }
-        $checkSettings = $this->checkSettings($data['FolderFrontendUrl']);
-        if(!empty($checkSettings['error'])){
-            return $checkSettings;
         }
 
         $head = '<meta name="viewport" content="width=device-width, initial-scale=1">';
@@ -91,7 +124,7 @@ class wW3pay
         if(empty($data['FolderFrontendUrl'])){
             $data['FolderFrontendUrl'] = _W3PAY_w3payFrontend_;
         }
-        $checkSettings = $this->checkSettings($data['FolderFrontendUrl']);
+        $checkSettings = $this->checkSettings();
         if(!empty($checkSettings['error'])){
             return $checkSettings;
         }
@@ -334,7 +367,7 @@ class wW3pay
         if(!isset($data['checkAuthRequired'])){ $data['checkAuthRequired'] = true; }
         if(!isset($data['sendurl'])){ $data['sendurl'] = _W3PAY_w3payFrontend_.'/load.php'; }
 
-        $checkSettings = $this->checkSettings(_W3PAY_w3payFrontend_);
+        $checkSettings = $this->checkSettings();
         if(!empty($checkSettings['error'])){
             return $checkSettings;
         }
@@ -363,14 +396,26 @@ class wW3pay
         return ['error' => 0, 'head'=>$head, 'html'=>$this->getTemplateHtml(__DIR__.'/templates/transactions.php', $data)];
     }
 
+    public function multicurrencyIsActive(){
+        $checkSettings = $this->checkSettings();
+        if(!empty($checkSettings['error'])){
+            return $checkSettings;
+        }
+        include_once(__DIR__.'/../settings/sSettings.php');
+        if(sSettings::instance()->enableFiatMulticurrency){
+            return ['error' => 0, 'html' => 'enableFiatMulticurrency'];
+        }
+        return ['error' => 1, 'html' => 'disabledFiatMulticurrency'];
+    }
+
     /**
-     * @param $FolderFrontendUrl
      * @return array
      */
-    public function checkSettings($FolderFrontendUrl){
+    public function checkSettings(){
+        $settingsLink = _W3PAY_w3payFrontend_.'/settings.php';
         if (!file_exists(__DIR__.'/../settings/sSettings.php')) {
             $LanguageBlock = sLanguage::instance()->getLanguageBlock();
-            $errorText = $LanguageBlock['L']->sL('Perform the initial setup of the payment method').'. <a target="_blank" href="'.$FolderFrontendUrl.'/settings.php">Settings.php</a>';
+            $errorText = $LanguageBlock['L']->sL('Perform the initial setup of the payment method').'. <!--<a target="_blank" href="'.$settingsLink.'">Settings</a>-->';
             return ['error' => 1, 'html' => $errorText];
         }
         return ['error' => 0, 'html' => 'success'];

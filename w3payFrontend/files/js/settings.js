@@ -106,6 +106,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 if(res.error==0){
                     $this.closest('.loadPageContent').innerHTML = res.html;
                     clickUseWeb();
+                    clickEnableFiatMulticurrency();
                     //$this.submit();
                 }
             }
@@ -126,6 +127,19 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
     clickUseWeb();
+
+    function clickEnableFiatMulticurrency($this){
+        if(document.querySelector('.enableFiatMulticurrencyInput')){
+            document.querySelector('.backendCurrencyConversionApiBlock').style.display = "none";
+
+            if(document.querySelector('.enableFiatMulticurrencyInput').checked){
+                document.querySelector('.backendCurrencyConversionApiBlock').style.display = "block";
+            } else {
+                //document.querySelector('.backendCurrencyConversionApiBlock').style.display = "block";
+            }
+        }
+    }
+    clickEnableFiatMulticurrency();
 
     // click Event
     document.addEventListener('submit', function OnClick(event) {
@@ -167,6 +181,13 @@ document.addEventListener("DOMContentLoaded", function() {
         if ($this.classList.contains(ActionNameClass)) {
             //event.preventDefault();
             clickUseWeb($this);
+            return false;
+        }
+
+        ActionNameClass = 'enableFiatMulticurrencyInput';
+        if ($this.classList.contains(ActionNameClass)) {
+            //event.preventDefault();
+            clickEnableFiatMulticurrency($this);
             return false;
         }
 

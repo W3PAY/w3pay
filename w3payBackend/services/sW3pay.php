@@ -211,6 +211,66 @@ class sW3pay
     }
 
     /**
+     * @param $SelectPayTokensData
+     * @return array
+     */
+    public function getPayAmountsData($SelectPayTokensData){
+        if (!class_exists('sSettings')) {
+            return ['error' => 1, 'data'=>$this->sSettingsErrorText];
+        }
+        if(empty($SelectPayTokensData['fiatData']['currency'])){
+            return ['error' => 1, 'data'=>'fiatData currency is empty'];
+        }
+        if(empty(floatval($SelectPayTokensData['fiatData']['amount']))){
+            return ['error' => 1, 'data'=>'fiatData amount is empty'];
+        }
+        if(empty(sSettings::instance()->enableFiatMulticurrency)){
+            return ['error' => 1, 'data'=>'Enable Fiat Multicurrency'];
+        }
+
+        // Convert currency
+        $FiatPriceData = sCurrencies::instance()->getFiatPrice($SelectPayTokensData['fiatData']['currency'],floatval($SelectPayTokensData['fiatData']['amount']),'USD');
+        if(!isset($FiatPriceData['error']) || !empty($FiatPriceData['error'])){
+            return $FiatPriceData;
+        }
+        $amountUSD = $FiatPriceData['amount'];
+
+        // Iterating over enabled networks
+        $PaymentSettingsArr = $this->getPaymentSettings();
+
+        $payAmounts=[];
+        if(!empty($SelectPayTokensData['orderId'])){
+            foreach($PaymentSettingsArr['chainsData'] as $PaymentSettingsRow){
+                $chainId = $PaymentSettingsRow['chainData']['chainId'];
+
+
+                if(!empty($PaymentSettingsRow['chainData']['status'])){
+                    $payAmountInReceiveToken = 0;
+                    if(!empty($PaymentSettingsRow['receiveToken']['coinParent']) && $PaymentSettingsRow['receiveToken']['coinParent']=='USD'){
+                        $payAmountInReceiveToken = $amountUSD;
+                    }
+
+                    if(!empty($PaymentSettingsRow['receiveToken']['coinParent'])){
+                        $FiatPriceData = sCurrencies::instance()->getFiatPrice($SelectPayTokensData['fiatData']['currency'],floatval($SelectPayTokensData['fiatData']['amount']),$PaymentSettingsRow['receiveToken']['coinParent']);
+                        if(!empty($FiatPriceData['amount'])){
+                            $payAmountInReceiveToken = $FiatPriceData['amount'];
+                        }
+                    }
+
+                    if(!empty($payAmountInReceiveToken)){
+                        $payAmounts[]=['chainId' => $chainId, 'payAmountInReceiveToken' => strval($payAmountInReceiveToken)];
+                    }
+                }
+            }
+        }
+
+        $OrderData = $SelectPayTokensData;
+        $OrderData['payAmounts'] = $payAmounts;
+
+        return ['error' => 0, 'data'=>'Success', 'OrderData'=>$OrderData];
+    }
+
+    /**
      * Add SignStr, addressRecipient from Order Data
      * @param $SelectPayTokensData
      * @return mixed
@@ -243,7 +303,7 @@ class sW3pay
                     if(!empty($PaymentSettingsChain)){
                         $addressSwapRouter = $PaymentSettingsChain['contractSwapRouter']['addressCoin'];
                         $addressRecipientToken = $PaymentSettingsChain['receiveToken']['addressCoin'];
-                        $payAmountInReceiveToken_decimals = $this->eth2wei($payAmount['payAmountInReceiveToken'], $PaymentSettingsChain['receiveToken']['decimals']);
+                        $payAmountInReceiveToken_decimals = $this->NumberToWei($payAmount['payAmountInReceiveToken'], $PaymentSettingsChain['receiveToken']['decimals']);
                         $addressContractPayData = $PaymentSettingsChain['contractPayData']['addressCoin'];
                         $SelectPayTokensData['payAmounts'][$payAmountKey]['SignStr'] = sW3pay::instance()->generatePaymentInfo($SelectPayTokensData['orderId'], $payAmount['chainId'], $addressContractPayData, sSettings::instance()->addressRecipient, $addressRecipientToken, $payAmountInReceiveToken_decimals, $addressSwapRouter);
                     }
@@ -365,11 +425,11 @@ class sW3pay
         // Add extData Tokens
         if(!empty($payTokensArr[mb_strtolower($checkSign['InputData']['addressRecipientToken']['data'])])){
             $checkSign['InputData']['addressRecipientToken']['extData'] = $payTokensArr[mb_strtolower($checkSign['InputData']['addressRecipientToken']['data'])];
-            $checkSign['InputData']['amountRecipientToken']['extData'] = $this->wei2eth($checkSign['InputData']['amountRecipientToken']['data'], $checkSign['InputData']['addressRecipientToken']['extData']['decimals']);
+            $checkSign['InputData']['amountRecipientToken']['extData'] = $this->WeiToNumber($checkSign['InputData']['amountRecipientToken']['data'], $checkSign['InputData']['addressRecipientToken']['extData']['decimals']);
         }
         if(!empty($payTokensArr[mb_strtolower($checkSign['InputData']['addressSenderToken']['data'])])){
             $checkSign['InputData']['addressSenderToken']['extData'] = $payTokensArr[mb_strtolower($checkSign['InputData']['addressSenderToken']['data'])];
-            $checkSign['InputData']['amountSenderToken']['extData'] = $this->wei2eth($checkSign['InputData']['amountSenderToken']['data'], $checkSign['InputData']['addressSenderToken']['extData']['decimals']);
+            $checkSign['InputData']['amountSenderToken']['extData'] = $this->WeiToNumber($checkSign['InputData']['amountSenderToken']['data'], $checkSign['InputData']['addressSenderToken']['extData']['decimals']);
         }
 
         // return true
@@ -401,27 +461,36 @@ class sW3pay
     }
 
     /**
-     * Int value is divisible up to decimal
-     * @param $value
-     * @param int $decimal
-     * @return string|null
+     * @param $number
+     * @param $decimals
+     * @return string
      */
-    public function wei2eth($value, $decimal = 18)
-    {
-        $dividend = (string)$value;
-        $divisor = (string)'1' . str_repeat('0', $decimal);
-        return bcdiv($value, $divisor, $decimal);
+    function WeiToNumber($number, $decimals){
+        $number = strval($number);
+        while(strlen($number) < ($decimals + 1)){
+            $number = "0".$number;
+        }
+        $beforeNumber = substr($number, 0, strlen($number) - $decimals);
+        $afterNumber = substr($number, -$decimals);
+        return $beforeNumber . '.' . $afterNumber;
     }
 
     /**
-     * @param $value
-     * @param int $decimal
+     * @param $number
+     * @param $decimals
      * @return string
      */
-    public function eth2wei($value, $decimal = 18)
-    {
-        $divisor = (string)'1' . str_repeat('0', $decimal);
-        return bcmul($value, $divisor);
+    function NumberToWei($number, $decimals){
+        $number = strval($number);
+        $numberAbs = explode('.', $number)[0];
+        $numberDecimals = isset(explode('.', $number)[1]) ? explode('.', $number)[1] : '';
+        while(strlen($numberDecimals) < $decimals){
+            $numberDecimals .= "0";
+        }
+        while(strlen($numberDecimals) > $decimals){
+            $numberDecimals = substr($numberDecimals, 0, -1);
+        }
+        return $numberAbs . $numberDecimals;
     }
 
     /**

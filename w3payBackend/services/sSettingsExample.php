@@ -29,6 +29,9 @@ class sSettingsExample
     public $LoadW3paySettingsDefaultGitHub = '{#LoadW3paySettingsDefaultGitHub#}'; // true - Get the latest w3pay_settings_default.json file from github
     public $useWeb3 = '{#useWeb3#}'; // true - Use web3p. A php interface for interacting with the Ethereum blockchain and ecosystem.
     // If $useWeb3 = true, then execute in the console: cd w3pay/w3payBackend/composer/; composer require web3p/web3.php dev-master;
+    public $enableFiatMulticurrency = '{#enableFiatMulticurrency#}'; // true - Enable to use multiple fiat currencies
+    public $CmcApi = '{#CmcApi#}'; // api key CoinMarketCap
+    public $rememberFiat = '{#rememberFiat#}'; // 1 - 1 hours
 
     /*public function basicSettings()
     {
@@ -79,7 +82,7 @@ class sSettingsExample
         if($this->returnExampleData){
             $SettingsFiles = [
                 'w3pay_settings' => sDefines::instance()->getPaths()['w3payFrontendPath']. '/files/settings/w3pay_settings.json',
-                'w3pay_settings_default' => __DIR__ . '/w3pay_settings_default.json',
+                'w3pay_settings_default' => __DIR__ . '/../services/w3pay_settings_default.json',
                 'composerAutoload' => __DIR__ . '/../composer/vendor/autoload.php',
             ];
         } else {

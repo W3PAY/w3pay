@@ -11,6 +11,7 @@ include_once(__DIR__.'/../services/sLanguage.php');
 include_once(__DIR__.'/../services/sDefines.php');
 include_once(__DIR__.'/../services/sAuth.php');
 include_once(__DIR__.'/../services/sFiles.php');
+include_once(__DIR__.'/../services/sCurrencies.php');
 
 class sAssistant
 {
@@ -157,6 +158,23 @@ class sAssistant
             }
         }
 
+        // Check Fiat Multicurrency
+        $dataPost['rememberFiat'] = (int)$dataPost['rememberFiat'];
+        if(empty($dataPost['enableFiatMulticurrency'])) {
+            $dataPost['enableFiatMulticurrency'] = 'false';
+        } else {
+            if(empty($dataPost['rememberFiat'])){
+                return ['error' => 1, 'data' => 'rememberFiat is empty'];
+            }
+            if(empty($dataPost['CmcApi'])){
+                return ['error' => 1, 'data' => 'CmcApi is empty'];
+            }
+            $checkApi = sCurrencies::instance()->checkApi($dataPost['CmcApi']);
+            if(!empty($checkApi['error'])){
+                return $checkApi;
+            }
+        }
+
         $CheckNetworks = '';
         $w3pay_settings_default = json_decode(file_get_contents($dataPost['SettingsFiles']['w3pay_settings_default']), true);
         if(empty($dataPost['useWeb3'])){
@@ -233,9 +251,19 @@ class sAssistant
         $sSettingsText = str_replace("'{#PaymentPersonalSettings#}'", sAssistant::instance()->getBufferArr($PaymentPersonalSettings), $sSettingsText);
         $sSettingsText = str_replace("'{#SettingsFiles#}'", sAssistant::instance()->getBufferArr($dataPost['SettingsFiles']), $sSettingsText);
 
-        $fp = fopen($this->getFilesSettingsArr()['sSettings.php'], "w");
-        fwrite($fp, $sSettingsText);
-        fclose($fp);
+        $sSettingsText = str_replace("'{#enableFiatMulticurrency#}'", $dataPost['enableFiatMulticurrency'], $sSettingsText);
+        $sSettingsText = str_replace("{#CmcApi#}", $dataPost['CmcApi'], $sSettingsText);
+        $sSettingsText = str_replace("{#rememberFiat#}", $dataPost['rememberFiat'], $sSettingsText);
+
+        if (class_exists('sSettings')) {
+            return ['error' => 1, 'data' => 'Errors: The sSettings class must not be declared before saving.'];
+        }
+
+        sFiles::instance()->createFile($this->getFilesSettingsArr()['sSettings.php'], $sSettingsText);
+
+        if (class_exists('sW3pay')) {
+            return ['error' => 1, 'data' => 'Errors: The sW3pay class must not be declared before saving.'];
+        }
 
         // generate w3pay_settings.json settings file.
         include_once(__DIR__ . '/../services/sW3pay.php');
@@ -268,6 +296,10 @@ class sAssistant
             $ScanApiTokens = sSettings::instance()->getScanApiTokens();
             $PaymentPersonalSettings = sSettings::instance()->getPaymentPersonalSettings();
             $SettingsFiles = sSettings::instance()->getSettingsFiles();
+
+            $enableFiatMulticurrency = sSettings::instance()->enableFiatMulticurrency;
+            $CmcApi = sSettings::instance()->CmcApi;
+            $rememberFiat = sSettings::instance()->rememberFiat;
         } else {
             // If there are no settings, then we get an example of settings
             include_once(__DIR__ . '/sSettingsExample.php');
@@ -281,6 +313,10 @@ class sAssistant
             $ScanApiTokens = sSettingsExample::instance()->getScanApiTokens();
             $PaymentPersonalSettings = sSettingsExample::instance()->getPaymentPersonalSettings();
             $SettingsFiles = sSettingsExample::instance()->getSettingsFiles();
+
+            $enableFiatMulticurrency = false;
+            $CmcApi = '';
+            $rememberFiat = 1;
         }
 
         $data['SecretSignKey']=$SecretSignKey;
@@ -291,6 +327,10 @@ class sAssistant
         $data['PaymentPersonalSettings']=$PaymentPersonalSettings;
         $data['SettingsFiles']=$SettingsFiles;
         $data['SettingsDefaultFileArr'] = json_decode(file_get_contents('https://w3pay.github.io/w3pay/w3payBackend/settings/w3pay_settings_default.json'), 'true');
+        $data['enableFiatMulticurrency']=$enableFiatMulticurrency;
+        $data['CmcApi']=$CmcApi;
+        $data['rememberFiat']=$rememberFiat;
+
 
         return $data;
     }
